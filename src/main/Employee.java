@@ -47,8 +47,15 @@ public class Employee {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder(super.toString());
-        sb.append("");
+        StringBuilder sb = new StringBuilder();
+        sb.append("ID = ")
+                .append(id)
+                .append("\nFirst Name = ")
+                .append(firstName)
+                .append("\nLast Name = ")
+                .append(lastName)
+                .append("\nHire Year = ")
+                .append(hireYear);
 
         return sb.toString();
     }

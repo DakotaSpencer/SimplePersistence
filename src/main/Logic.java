@@ -3,9 +3,9 @@ package main;
 import java.io.*;
 import java.io.FileWriter;   // Import the FileWriter class
 import java.io.IOException;  // Import the IOException class to handle errors
-import java.util.Scanner;
 
-public class Logic {
+
+public class Logic implements java.io.Serializable {
     public static String path = "./people/simple/";
 
     public static void run() throws IOException {
@@ -57,7 +57,7 @@ public class Logic {
 
     }
 
-    public static void SerializeEmployee(){
+    public static void SerializeEmployee() throws IOException {
         String newPath = "./people/long/";
         System.out.println(newPath);
         File f = new File("./people/long/");
@@ -73,35 +73,76 @@ public class Logic {
             var empHIRE_YEAR = Integer.parseInt(readString[3].replaceAll("\\s", ""));
 
             var employee = new Employee(empID, empFNAME, empLNAME,empHIRE_YEAR);
+            System.out.println(employee);
 
+            String filename = empID + ".ser";
 
-//FOLLOW TUTORIAL IN LINK TO ACTUALLY DO SERIALIZATION
+            try
+            {
+                File targetDir=new File("./people/long serialized/");
+                File targetFile=new File(targetDir, filename);
 
+                //Saving of object in a file in the right directory
+                FileOutputStream file = new FileOutputStream(targetFile);
+                ObjectOutputStream out = new ObjectOutputStream(file);
 
+                // Method for serialization of object
+                out.writeObject(employee);
 
-//            String folder = "./people/long serialized/";
-//            String fileType =  empID + ".ser";
-//
-//            try {
-//                File newfile = new File(folder, fileType);
-//                f.createNewFile();
-//                FileWriter myWriter = new FileWriter(newfile);
-//                myWriter.write(empID + ", " + empFNAME + ", " + empLNAME + ", " + empHIRE_YEAR);
-//                myWriter.close();
-//                System.out.println("Successfully wrote to the file.");
-//            } catch (IOException e) {
-//                System.out.println("An error occurred.");
-//                e.printStackTrace();
-//            }
-//            //createFile(employee);
-//            System.out.println(employee.toString());
+                out.close();
+                file.close();
+
+                System.out.println("Object has been serialized");
+
+            }
+
+            catch(IOException ex)
+            {
+                System.out.println("IOException is caught");
+                ex.printStackTrace();
+            }
         }
 
     }
 
-//    public static Employee GetSerializedEmployee(Integer id){
-//        return;
-//    }
+    public static Employee GetSerializedEmployee() {
+        String newPath = "./people/long/";
+        System.out.println(newPath);
+        File f = new File("./people/long/");
+        String[] paths;
+        paths = f.list();
+
+        for (int i = 0; i < paths.length; i++) {
+            Employee employee = null;
+
+            String filename = i + ".ser";
+
+            try {
+                // Reading the object from a file
+                FileInputStream file = new FileInputStream(filename);
+                ObjectInputStream in = new ObjectInputStream(file);
+
+                // Method for deserialization of object
+                employee = (Employee) in.readObject();
+
+                in.close();
+                file.close();
+
+                System.out.println("Object has been deserialized ");
+                System.out.println("ID = " + employee.id);
+                System.out.println("First Name = " + employee.firstName);
+                System.out.println("Last Name = " + employee.lastName);
+                System.out.println("Hire Year = " + employee.hireYear);
+            } catch (IOException ex) {
+                System.out.println("IOException is caught");
+                ex.printStackTrace();
+            } catch (ClassNotFoundException ex) {
+                System.out.println("ClassNotFoundException is caught");
+            }
+            return employee;
+        }
+        return null;
+    }
 
     public static String readFromFile(String filePath) {
         String line = "";

@@ -13,34 +13,42 @@ public class Logic {
         PrintPeopleDetails(path);
         System.out.println("PRINTING EMPLOYEE DETAILS");
         PrintEmployees(path);
-        AddEmployee(12, "test", "test", 1);
+        System.out.println("RUNNING ADD EMPLOYEE");
+        AddEmployee(11110, "test", "test", 1);
+        System.out.println("RUNNING SERIALIZE EMPLOYEE");
+        SerializeEmployee();
     }
 
     public static void AddEmployee(Integer id, String firstName, String lastName, Integer hireDate) throws IOException {
+        String folder = "./people/long/";
+        String fileName =  id + ".txt";
 
-        File myObj = new File("C:\\Users\\MyName\\filename.txt");
-
-        String folder = "./people/long serialized/";
-        String fileName = "filename.txt";
-
-//        File f = new File(folder, fileName);
-//        f.createNewFile();
-
+        //determining how many items are in folder
+        path = "./people/long/";
+        System.out.println(path);
+        File file = new File("./people/long/");
+        String[] path;
+        path = file.list();
 
         try {
-            File f = new File(folder, fileName);
-            f.createNewFile();
-
-            FileWriter myWriter = new FileWriter(fileName);
-            myWriter.write("test");
-            myWriter.close();
-            System.out.println("Successfully wrote to the file.");
+            if (id >= path.length){
+                File f = new File(folder, fileName);
+                f.createNewFile();
+                FileWriter myWriter = new FileWriter(f);
+                myWriter.write(id + ", " + firstName + ", " + lastName + ", " + hireDate);
+                myWriter.close();
+                System.out.println("Successfully wrote to the file.");
+            }else{
+                System.out.println("ID given: " + id + "is invalid. ID cannot be less than 10000");
+            }
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
 
     }
+
+
     public static void DeleteEmployee(Integer id){
 
     }
@@ -52,7 +60,7 @@ public class Logic {
     public static void SerializeEmployee(){
 
         System.out.println(path);
-        File f = new File("./people/simple/");
+        File f = new File("./people/long/");
         String[] paths;
         paths = f.list();
 
@@ -65,8 +73,25 @@ public class Logic {
             var empHIRE_YEAR = Integer.parseInt(readString[3].replaceAll("\\s", ""));
 
             var employee = new Employee(empID, empFNAME, empLNAME,empHIRE_YEAR);
+
+            String folder = "./people/long serialized/";
+            String fileType =  empID + ".ser";
+
+            try {
+                File newfile = new File(folder, fileType);
+                f.createNewFile();
+                FileWriter myWriter = new FileWriter(newfile);
+                myWriter.write(empID + ", " + empFNAME + ", " + empLNAME + ", " + empHIRE_YEAR);
+                myWriter.close();
+                System.out.println("Successfully wrote to the file.");
+            } catch (IOException e) {
+                System.out.println("An error occurred.");
+                e.printStackTrace();
+            }
+            //createFile(employee);
             System.out.println(employee.toString());
         }
+
     }
 
 //    public static Employee GetSerializedEmployee(Integer id){

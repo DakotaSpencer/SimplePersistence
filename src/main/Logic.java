@@ -49,14 +49,8 @@ public class Logic {
             var readString = readFromFile(path + paths[i]).split(",");
             System.out.println();
             var empID = Integer.parseInt(readString[0]);
-
-            System.out.println();
             var empFNAME = readString[1].replaceAll("\\s", "");
-
-            System.out.println();
             var empLNAME = readString[2].replaceAll("\\s", "");
-
-            System.out.println();
             var empHIRE_YEAR = Integer.parseInt(readString[3].replaceAll("\\s", ""));
 
             var employee = new Employee(empID, empFNAME, empLNAME,empHIRE_YEAR);

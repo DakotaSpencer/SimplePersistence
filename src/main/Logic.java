@@ -58,14 +58,14 @@ public class Logic {
     }
 
     public static void SerializeEmployee(){
-
-        System.out.println(path);
+        String newPath = "./people/long/";
+        System.out.println(newPath);
         File f = new File("./people/long/");
         String[] paths;
         paths = f.list();
 
         for (int i = 0; i < paths.length; i++) {
-            var readString = readFromFile(path + paths[i]).split(",");
+            var readString = readFromFile(newPath + paths[i]).split(",");
             System.out.println();
             var empID = Integer.parseInt(readString[0]);
             var empFNAME = readString[1].replaceAll("\\s", "");
@@ -74,22 +74,27 @@ public class Logic {
 
             var employee = new Employee(empID, empFNAME, empLNAME,empHIRE_YEAR);
 
-            String folder = "./people/long serialized/";
-            String fileType =  empID + ".ser";
 
-            try {
-                File newfile = new File(folder, fileType);
-                f.createNewFile();
-                FileWriter myWriter = new FileWriter(newfile);
-                myWriter.write(empID + ", " + empFNAME + ", " + empLNAME + ", " + empHIRE_YEAR);
-                myWriter.close();
-                System.out.println("Successfully wrote to the file.");
-            } catch (IOException e) {
-                System.out.println("An error occurred.");
-                e.printStackTrace();
-            }
-            //createFile(employee);
-            System.out.println(employee.toString());
+//FOLLOW TUTORIAL IN LINK TO ACTUALLY DO SERIALIZATION
+
+
+
+//            String folder = "./people/long serialized/";
+//            String fileType =  empID + ".ser";
+//
+//            try {
+//                File newfile = new File(folder, fileType);
+//                f.createNewFile();
+//                FileWriter myWriter = new FileWriter(newfile);
+//                myWriter.write(empID + ", " + empFNAME + ", " + empLNAME + ", " + empHIRE_YEAR);
+//                myWriter.close();
+//                System.out.println("Successfully wrote to the file.");
+//            } catch (IOException e) {
+//                System.out.println("An error occurred.");
+//                e.printStackTrace();
+//            }
+//            //createFile(employee);
+//            System.out.println(employee.toString());
         }
 
     }

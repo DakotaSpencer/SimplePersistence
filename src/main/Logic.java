@@ -9,7 +9,7 @@ public class Logic implements java.io.Serializable {
     public static String path = "./people/simple/";
 
     public static void run() throws IOException {
-        System.out.println("PRINTING EACH ITEM");
+        System.out.println("PRINTING EACH EMPLOYEE");
         PrintPeopleDetails(path);
         System.out.println("PRINTING EMPLOYEE DETAILS");
         PrintEmployees(path);
@@ -17,8 +17,12 @@ public class Logic implements java.io.Serializable {
         AddEmployee(11110, "test", "test", 1);
         System.out.println("RUNNING SERIALIZE EMPLOYEE");
         SerializeEmployee();
-        //DeleteEmployee(); //<-- enter id number there
-        //UpdateEmployee(347, "Neil", "Moran", 2006);
+        System.out.println("DELETE EMPLOYEE");
+        DeleteEmployee(11110); //<-- enter id number there
+        System.out.println("UPDATE EMPLOYEE");
+        UpdateEmployee(347, "Nelly", "Morgan", 2007);
+        System.out.println("GET SERIALIZED EMPLOYEE");
+        GetSerializedEmployee(1);
     }
 
     public static void AddEmployee(Integer id, String firstName, String lastName, Integer hireDate) throws IOException {
@@ -39,7 +43,7 @@ public class Logic implements java.io.Serializable {
                 FileWriter myWriter = new FileWriter(f);
                 myWriter.write(id + ", " + firstName + ", " + lastName + ", " + hireDate);
                 myWriter.close();
-                System.out.println("Successfully wrote to the file.");
+                System.out.println("File " + id + ".txt has been successfully updated" );
             }else{
                 System.out.println("ID given: " + id + "is invalid. ID cannot be less than 10000");
             }
@@ -62,22 +66,33 @@ public class Logic implements java.io.Serializable {
     }
 
     public static void UpdateEmployee(Integer id, String firstName, String lastName, Integer hireDate){
-        Employee updatePerson = new Employee(id, firstName, lastName, hireDate);
-        try{
-            //we gotta manually configure this or else everyone is gonna be named Bob (if statement included):P
-            updatePerson.setId(1234);
-            updatePerson.setFirstName("Bob");
-            updatePerson.setLastName("Doe");
-            updatePerson.setHireYear(2004);
-            System.out.println(updatePerson);
-        }catch (Exception e){
-            e.printStackTrace();
+        String folder = "./people/long/";
+        String fileName =  id + ".txt";
 
-        }
-        if(updatePerson.getFirstName() == "Bob"){
-            System.out.println(updatePerson.getFirstName() + " is here");
-        } else{
-            System.out.println("Who?");
+        //determining how many items are in folder
+        path = "./people/long/";
+        System.out.println(path);
+        File file = new File("./people/long/");
+        String[] paths;
+        paths = file.list();
+
+        for (int i = 0; i < paths.length; i++) {
+            if (id == i) {
+                try {
+                    File f = new File(folder, fileName);
+                    f.createNewFile();
+                    FileWriter myWriter = new FileWriter(f);
+                    myWriter.write(id + ", " + firstName + ", " + lastName + ", " + hireDate);
+                    myWriter.close();
+                    System.out.println("Successfully wrote to the file.");
+                } catch (IOException e) {
+                    System.out.println("An error occurred.");
+                    e.printStackTrace();
+                }
+            }
+            else{
+                continue;
+            }
         }
     }
 
@@ -129,43 +144,47 @@ public class Logic implements java.io.Serializable {
 
     }
 
-    public static Employee GetSerializedEmployee() {
-        String newPath = "./people/long/";
-        System.out.println(newPath);
-        File f = new File("./people/long/");
+    public static Employee GetSerializedEmployee(Integer id) {
+        String path = "./people/long serialized/";
+        System.out.println(path);
+        File f = new File("./people/long serialized/");
         String[] paths;
         paths = f.list();
+        Employee employee = null;
 
         for (int i = 0; i < paths.length; i++) {
-            Employee employee = null;
+            if (i == id) {
 
-            String filename = i + ".ser";
 
-            try {
-                // Reading the object from a file
-                FileInputStream file = new FileInputStream(filename);
-                ObjectInputStream in = new ObjectInputStream(file);
+                String filename = path + id + ".ser";
 
-                // Method for deserialization of object
-                employee = (Employee) in.readObject();
+                try {
+                    // Reading the object from a file
+                    FileInputStream file = new FileInputStream(filename);
+                    ObjectInputStream in = new ObjectInputStream(file);
 
-                in.close();
-                file.close();
+                    // Method for deserialization of object
+                    employee = (Employee) in.readObject();
 
-                System.out.println("Object has been deserialized ");
-                System.out.println("ID = " + employee.id);
-                System.out.println("First Name = " + employee.firstName);
-                System.out.println("Last Name = " + employee.lastName);
-                System.out.println("Hire Year = " + employee.hireYear);
-            } catch (IOException ex) {
-                System.out.println("IOException is caught");
-                ex.printStackTrace();
-            } catch (ClassNotFoundException ex) {
-                System.out.println("ClassNotFoundException is caught");
+                    in.close();
+                    file.close();
+
+                    System.out.println("Object has been deserialized ");
+                    System.out.println("ID = " + employee.id);
+                    System.out.println("First Name = " + employee.firstName);
+                    System.out.println("Last Name = " + employee.lastName);
+                    System.out.println("Hire Year = " + employee.hireYear);
+                } catch (IOException ex) {
+                    System.out.println("IOException is caught");
+                    ex.printStackTrace();
+                } catch (ClassNotFoundException ex) {
+                    System.out.println("ClassNotFoundException is caught");
+                }
+
             }
-            return employee;
+
         }
-        return null;
+        return employee;
     }
 
     public static String readFromFile(String filePath) {

@@ -64,7 +64,7 @@ public class Logic implements java.io.Serializable {
     public static void UpdateEmployee(Integer id, String firstName, String lastName, Integer hireDate){
         Employee updatePerson = new Employee(id, firstName, lastName, hireDate);
         try{
-            //we gotta manually configure this or else everyone is gonna be named Bob :P
+            //we gotta manually configure this or else everyone is gonna be named Bob (if statement included):P
             updatePerson.setId(1234);
             updatePerson.setFirstName("Bob");
             updatePerson.setLastName("Doe");

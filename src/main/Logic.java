@@ -18,6 +18,7 @@ public class Logic implements java.io.Serializable {
         System.out.println("RUNNING SERIALIZE EMPLOYEE");
         SerializeEmployee();
         //DeleteEmployee(); //<-- enter id number there
+        //UpdateEmployee(347, "Neil", "Moran", 2006);
     }
 
     public static void AddEmployee(Integer id, String firstName, String lastName, Integer hireDate) throws IOException {
@@ -51,7 +52,7 @@ public class Logic implements java.io.Serializable {
 
 
     public static void DeleteEmployee(Integer id){
-        File deletedFile = new File("people/simple/1234.txt"); //or the path of the file you want to delete
+        File deletedFile = new File("people/long/" + id + ".txt"); //or the path of the file you want to delete
         //File idDeleteFile = new File(deletedFile.getName() + ".txt");
         if(deletedFile.delete()){
             System.out.println(deletedFile.getName() + " has been deleted.");
@@ -61,7 +62,23 @@ public class Logic implements java.io.Serializable {
     }
 
     public static void UpdateEmployee(Integer id, String firstName, String lastName, Integer hireDate){
+        Employee updatePerson = new Employee(id, firstName, lastName, hireDate);
+        try{
+            //we gotta manually configure this or else everyone is gonna be named Bob :P
+            updatePerson.setId(1234);
+            updatePerson.setFirstName("Bob");
+            updatePerson.setLastName("Doe");
+            updatePerson.setHireYear(2004);
+            System.out.println(updatePerson);
+        }catch (Exception e){
+            e.printStackTrace();
 
+        }
+        if(updatePerson.getFirstName() == "Bob"){
+            System.out.println(updatePerson.getFirstName() + " is here");
+        } else{
+            System.out.println("Who?");
+        }
     }
 
     public static void SerializeEmployee() throws IOException {

@@ -17,6 +17,7 @@ public class Logic implements java.io.Serializable {
         AddEmployee(11110, "test", "test", 1);
         System.out.println("RUNNING SERIALIZE EMPLOYEE");
         SerializeEmployee();
+        //DeleteEmployee(); //<-- enter id number there
     }
 
     public static void AddEmployee(Integer id, String firstName, String lastName, Integer hireDate) throws IOException {
@@ -50,7 +51,13 @@ public class Logic implements java.io.Serializable {
 
 
     public static void DeleteEmployee(Integer id){
-
+        File deletedFile = new File("people/simple/1234.txt"); //or the path of the file you want to delete
+        //File idDeleteFile = new File(deletedFile.getName() + ".txt");
+        if(deletedFile.delete()){
+            System.out.println(deletedFile.getName() + " has been deleted.");
+        } else{
+            System.out.println("L bozo the file is still there");
+        }
     }
 
     public static void UpdateEmployee(Integer id, String firstName, String lastName, Integer hireDate){

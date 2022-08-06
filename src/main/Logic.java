@@ -3,6 +3,7 @@ package main;
 import java.io.*;
 import java.io.FileWriter;   // Import the FileWriter class
 import java.io.IOException;  // Import the IOException class to handle errors
+import java.util.ArrayList;
 
 
 public class Logic implements java.io.Serializable {
@@ -94,6 +95,21 @@ public class Logic implements java.io.Serializable {
                 continue;
             }
         }
+    }
+
+    public static Employee FindEmployeeById(int id){
+        Employee emp = new Employee();
+        File findEmployee = new File("people/long/" + id + ".txt");
+        //needs a new employee to be able to call them/ I'm kinda thinking of
+        //doing an array but I'm not quite sure how it would work :/
+
+        //File idDeleteFile = new File(deletedFile.getName() + ".txt");
+        if(findEmployee.equals(id)){
+            System.out.println(findEmployee.getName() + " is here!");
+        } else{
+            System.out.println("I don't know who you're talking about");
+        }
+       return emp;
     }
 
     public static void SerializeEmployee() throws IOException {

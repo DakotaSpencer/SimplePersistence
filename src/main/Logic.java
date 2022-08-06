@@ -5,6 +5,7 @@ import java.io.FileWriter;   // Import the FileWriter class
 import java.io.IOException;  // Import the IOException class to handle errors
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 
 public class Logic implements java.io.Serializable {
@@ -108,6 +109,15 @@ public class Logic implements java.io.Serializable {
         }
         return null;
     }
+    //Employee FindEmployeeByLastName(String lastName) <-- would be the same as find ID
+
+    List<Employee>FindAllEmployeesByLastName(String lastName){
+
+
+        return null;
+    }
+
+
 
     public static void SerializeEmployee() throws IOException {
         String newPath = "./people/long/";

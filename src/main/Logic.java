@@ -4,6 +4,7 @@ import java.io.*;
 import java.io.FileWriter;   // Import the FileWriter class
 import java.io.IOException;  // Import the IOException class to handle errors
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class Logic implements java.io.Serializable {
@@ -24,6 +25,7 @@ public class Logic implements java.io.Serializable {
         UpdateEmployee(347, "Nelly", "Morgan", 2007);
         System.out.println("GET SERIALIZED EMPLOYEE");
         GetSerializedEmployee(1);
+
     }
 
     public static void AddEmployee(Integer id, String firstName, String lastName, Integer hireDate) throws IOException {
@@ -97,19 +99,14 @@ public class Logic implements java.io.Serializable {
         }
     }
 
-    public static Employee FindEmployeeById(int id){
-        Employee emp = new Employee();
-        File findEmployee = new File("people/long/" + id + ".txt");
-        //needs a new employee to be able to call them/ I'm kinda thinking of
-        //doing an array but I'm not quite sure how it would work :/
-
-        //File idDeleteFile = new File(deletedFile.getName() + ".txt");
-        if(findEmployee.equals(id)){
-            System.out.println(findEmployee.getName() + " is here!");
-        } else{
-            System.out.println("I don't know who you're talking about");
+    Employee FindEmployeeById(int id) {
+        ArrayList<Employee>employees = new ArrayList<>();
+        for (Employee employee : employees) {
+            if (employee.getId() == id) {
+                return employee;
+            }
         }
-       return emp;
+        return null;
     }
 
     public static void SerializeEmployee() throws IOException {

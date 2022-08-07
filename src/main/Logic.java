@@ -5,6 +5,7 @@ import java.io.FileWriter;   // Import the FileWriter class
 import java.io.IOException;  // Import the IOException class to handle errors
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -305,7 +306,7 @@ public class Logic implements java.io.Serializable {
         }
     }
 
-    public static void PrintEmployees(String path) {
+    public static void PrintAllEmployees(String path) {
         System.out.println(path);
         File f = new File("./people/simple/");
         String[] paths;
@@ -323,4 +324,16 @@ public class Logic implements java.io.Serializable {
             System.out.println(employee.toString());
         }
     }
+
+    HashMap<Integer, Employee> GetAllEmployees = new HashMap<>();
+    //so apparently it needs a seperate class to work but not entirely sure yet
+
+    /* Call GetAllEmployees above
+Loop through the values in your HashMap and print each Employees Details*/
+
+
+
+
 }
+
+

@@ -1,12 +1,7 @@
 package main;
 
 import java.io.*;
-import java.io.FileWriter;   // Import the FileWriter class
-import java.io.IOException;  // Import the IOException class to handle errors
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 
 public class Logic implements java.io.Serializable {
@@ -42,6 +37,10 @@ public class Logic implements java.io.Serializable {
 //        System.out.println();
 //        System.out.println("FIND EMPLOYEE BY LAST NAME");
 //        FindEmployeeByLastName("FOSTER");
+        //GetAllEmployees(new File("people\\simple"));
+       // PrintAllEmployees();
+        //PrintSerializedDetails(new File("people\\simple serialized"));
+        GetSerializedEmployee(1);
 
     }
 
@@ -127,43 +126,69 @@ public class Logic implements java.io.Serializable {
         return (List<Employee>) employee;
     }
 
-    public static HashMap<Integer, Employee> GetAllEmployees(String path){
-//        Takes a path parameter
-        //Iterates over each serialized (.ser) file in the given path
-        File f = new File("./people/long serialized/"); // assuming long serialized has the .ser files
-        //sets the file path to an object
-        String[] paths;
-        //Both add file path to an iterable array
-        paths = f.list();
-        for (int i = 0; i < paths.length; i++) {
-            //iterates though and prings every file
-            //System.out.println( paths[i]);
-            System.out.println(readFromFile(path + paths[i]));
-        }
-//        for(int i = 0; i < path.length(); i++){
-//           try{
-//            //GetSerializedEmployee(1234); //<-- example id
-//
-//           } catch (Exception e){
-//               e.printStackTrace();
-//           }
-//
-//        }
+    public static HashMap<Integer, Employee> GetAllEmployees(File path){
+        HashMap<Integer, Employee> empMap = new HashMap<>();
+        Employee employee = null;
 
-//        Deserialize the Employee Object
-//        Add the Employee object to a HashMap keyed by the employees Id
-//        Return the HashMap with all Employees records
-        return null;
+        File[] f = new File(path.toURI()).listFiles(); // assuming long serialized has the .ser files
+        System.out.println(f);
+
+        for (int i = 0; i < f.length; i++) {
+
+            var readString = readFromFile(String.valueOf(f[i])).split(",");
+
+            var empID = Integer.parseInt(readString[0]);
+            var empFNAME = readString[1].replaceAll("\\s", "");
+            var empLNAME = readString[2].replaceAll("\\s", "");
+            var empHIRE_YEAR = Integer.parseInt(readString[3].replaceAll("\\s", ""));
+
+            employee = new Employee(empID, empFNAME, empLNAME, empHIRE_YEAR);
+
+            empMap.put(i, employee);
+        }
+        return empMap;
     }
     public static void PrintAllEmployees() {
-//        Call GetAllEmployees above
-//        Loop through the values in your HashMap and print each Employees Details
+        GetAllEmployees(new File("people\\simple")).forEach((key, value) -> {
+            System.out.println(key + " | " + value);
+        });
     }
 
-    public static void PrintSerializedDetails(String path){
-//    Takes a path parameter
-//    Iterates over each serialized (.ser) file in the given path
-//    Deseralize the Employee Object and prints it's toString details
+    public static void PrintSerializedDetails(File path){
+
+        System.out.println(path);
+        File[] f = new File(path.toURI()).listFiles(); // assuming long serialized has the .ser files
+        System.out.println(f.toString());
+
+        Employee employee = null;
+
+        for (int i = 0; i < f.length; i++) {
+
+            File filename = f[i];
+            System.out.println(filename);
+
+            try {
+                // Reading the object from a file
+                FileInputStream file = new FileInputStream(filename);
+                ObjectInputStream in = new ObjectInputStream(file);
+
+                // Method for deserialization of object
+                System.out.println(in.readObject());
+              //  employee = (Employee) in.readObject();
+
+                in.close();
+                file.close();
+
+//                System.out.println("Object has been deserialized ");
+//                System.out.println("ID = " + employee.id);
+//                System.out.println("First Name = " + employee.firstName);
+//                System.out.println("Last Name = " + employee.lastName);
+//                System.out.println("Hire Year = " + employee.hireYear);
+            } catch (Exception ex) {
+                System.out.println("IOException is caught");
+                ex.printStackTrace();
+            }
+        }
     }
 
     //Part 2
@@ -287,43 +312,35 @@ public class Logic implements java.io.Serializable {
     }
 
     public static Employee GetSerializedEmployee(Integer id) {
-        String path = "./people/long serialized/";
-        System.out.println(path);
-        File f = new File("./people/long serialized/");
-        String[] paths;
-        paths = f.list();
+      //  String path = "./people/long serialized/";
+      //  System.out.println(path);
+       // File[] f = ; // assuming long serialized has the .ser files
         Employee employee = null;
 
-        for (int i = 0; i < paths.length; i++) {
-            if (i == id) {
+       for(File entry : new File("people\\simple serialized").listFiles()) {
+
+           try {
+               // Reading the object from a file
+               FileInputStream file = new FileInputStream(entry);
+               ObjectInputStream in = new ObjectInputStream(file);
+
+               // Method for deserialization of object
 
 
-                String filename = path + id + ".ser";
+               employee = (Employee) in.readObject();
 
-                try {
-                    // Reading the object from a file
-                    FileInputStream file = new FileInputStream(filename);
-                    ObjectInputStream in = new ObjectInputStream(file);
+               in.close();
+               file.close();
 
-                    // Method for deserialization of object
-                    employee = (Employee) in.readObject();
-
-                    in.close();
-                    file.close();
-
-                    System.out.println("Object has been deserialized ");
-                    System.out.println("ID = " + employee.id);
-                    System.out.println("First Name = " + employee.firstName);
-                    System.out.println("Last Name = " + employee.lastName);
-                    System.out.println("Hire Year = " + employee.hireYear);
-                } catch (IOException ex) {
-                    System.out.println("IOException is caught");
-                    ex.printStackTrace();
-                } catch (ClassNotFoundException ex) {
-                    System.out.println("ClassNotFoundException is caught");
-                }
-
-            }
+               System.out.println("Object has been deserialized ");
+               System.out.println("ID = " + employee.id);
+               System.out.println("First Name = " + employee.firstName);
+               System.out.println("Last Name = " + employee.lastName);
+               System.out.println("Hire Year = " + employee.hireYear);
+           } catch (Exception ex) {
+               System.out.println("IOException is caught");
+               ex.printStackTrace();
+           }
 
         }
         return employee;

@@ -14,7 +14,13 @@ public class Logic implements java.io.Serializable {
 
     public static void run() throws IOException {
 //        System.out.println("PRINTING EACH EMPLOYEE");
-//          PrintPeopleDetails(path);
+        
+//        long startTime = System.nanoTime();
+//        long endTime = System.nanoTime();
+//        PrintPeopleDetails(path);
+//        long duration = (endTime - startTime);
+//        System.out.println("Method took " + duration / 1000000 + " ms to complete");
+
 //        System.out.println("PRINTING EMPLOYEE DETAILS");
 //        PrintEmployees(path);
 //        System.out.println("RUNNING ADD EMPLOYEE");
@@ -30,12 +36,12 @@ public class Logic implements java.io.Serializable {
 //        System.out.println("GET SERIALIZED EMPLOYEE");
 //        GetSerializedEmployee(1);
 
-        System.out.println("FIND EMPLOYEE BY ID");
-        FindEmployeeById(4);
-        System.out.println();
-        System.out.println();
-        System.out.println("FIND EMPLOYEE BY LAST NAME");
-        FindEmployeeByLastName("FOSTER");
+//        System.out.println("FIND EMPLOYEE BY ID");
+//        FindEmployeeById(4);
+//        System.out.println();
+//        System.out.println();
+//        System.out.println("FIND EMPLOYEE BY LAST NAME");
+//        FindEmployeeByLastName("FOSTER");
 
     }
 

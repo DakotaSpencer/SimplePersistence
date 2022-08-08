@@ -14,10 +14,12 @@ public class Logic implements java.io.Serializable {
 
     public static void run() throws IOException {
 //        System.out.println("PRINTING EACH EMPLOYEE");
-//        PrintPeopleDetails(path);
+//          PrintPeopleDetails(path);
 //        System.out.println("PRINTING EMPLOYEE DETAILS");
 //        PrintEmployees(path);
 //        System.out.println("RUNNING ADD EMPLOYEE");
+
+
 //        AddEmployee(11110, "test", "test", 1);
 //        System.out.println("RUNNING SERIALIZE EMPLOYEE");
 //        SerializeEmployee();
@@ -27,10 +29,118 @@ public class Logic implements java.io.Serializable {
 //        UpdateEmployee(347, "Nelly", "Morgan", 2007);
 //        System.out.println("GET SERIALIZED EMPLOYEE");
 //        GetSerializedEmployee(1);
-//        FindEmployeeById(4);
+
+        System.out.println("FIND EMPLOYEE BY ID");
+        FindEmployeeById(4);
+        System.out.println();
+        System.out.println();
+        System.out.println("FIND EMPLOYEE BY LAST NAME");
         FindEmployeeByLastName("FOSTER");
 
     }
+
+
+    public static Employee FindEmployeeById(int id) {
+        String path = "./people/long/";
+        System.out.println("ID given:" + id);
+        System.out.println();
+        File f = new File("./people/long/");
+        String[] paths;
+        paths = f.list();
+        Employee employee = null;
+
+        for (int i = 0; i < paths.length; i++) {
+
+            var readString = readFromFile(path + paths[i]).split(",");
+            var empID = Integer.parseInt(readString[0]);
+            var empFNAME = readString[1].replaceAll("\\s", "");
+            var empLNAME = readString[2].replaceAll("\\s", "");
+            var empHIRE_YEAR = Integer.parseInt(readString[3].replaceAll("\\s", ""));
+            if (empID == id) {
+                // Reading the object from a file
+                employee = new Employee(empID, empFNAME, empLNAME, empHIRE_YEAR);
+            }
+        }
+
+
+        System.out.println(employee);
+        return employee;
+    }
+
+    public static Employee FindEmployeeByLastName(String lastName){
+        String path = "./people/long/";
+        System.out.println("Last Name given: " + lastName);
+        File f = new File("./people/long/");
+        String[] paths;
+        paths = f.list();
+        Employee employee = null;
+
+        for (int i = 0; i < paths.length; i++) {
+
+            var readString = readFromFile(path + paths[i]).split(",");
+
+            var empID = Integer.parseInt(readString[0]);
+            var empFNAME = readString[1].replaceAll("\\s", "");
+            var empLNAME = readString[2].replaceAll("\\s", "");
+            var empHIRE_YEAR = Integer.parseInt(readString[3].replaceAll("\\s", ""));
+
+            if (empLNAME.contains(lastName)) {
+                // Reading the object from a file
+                System.out.println();
+                System.out.println("MATCH FOUND");
+                System.out.println();
+
+                employee = new Employee(empID, empFNAME, empLNAME, empHIRE_YEAR);
+                System.out.println(employee);
+                //IF BREAK IS REMOVED, THIS THEN RETURNS EVERY PERSON WITH THE SAME LAST NAME GIVEN
+                break;
+            }
+        }
+        return employee;
+    }
+
+    public static List<Employee> FindAllEmployeesByLastName(String lastName){
+
+        String path = "./people/long/";
+        System.out.println("Last Name given:" + lastName);
+        System.out.println(path);
+        File f = new File("./people/long/");
+        String[] paths;
+        paths = f.list();
+        Employee employee = null;
+
+        for (int i = 0; i < paths.length; i++) {
+
+            //logic
+//            Searches all employee records for the first record with the given lastName
+//            Returns the first matching record as an employee object
+        }
+
+
+        System.out.println(employee);
+        return (List<Employee>) employee;
+    }
+
+    public static HashMap<Integer, Employee> GetAllEmployees(String path){
+//        Takes a path parameter
+//        Iterates over each serialized (.ser) file in the given path
+//        Deserialize the Employee Object
+//        Add the Employee object to a HashMap keyed by the employees Id
+//        Return the HashMap with all Employees records
+        return null;
+    }
+    public static void PrintAllEmployees() {
+//        Call GetAllEmployees above
+//        Loop through the values in your HashMap and print each Employees Details
+    }
+
+    public static void PrintSerializedDetails(String path){
+//    Takes a path parameter
+//    Iterates over each serialized (.ser) file in the given path
+//    Deseralize the Employee Object and prints it's toString details
+    }
+
+    //Part 2
 
     public static void AddEmployee(Integer id, String firstName, String lastName, Integer hireDate) throws IOException {
         String folder = "./people/long/";
@@ -101,93 +211,6 @@ public class Logic implements java.io.Serializable {
             }
         }
     }
-
-
-//    Employee FindEmployeeById(int Id)
-//    Searches all employee records for the first record with the given Id
-//    Returns the first matching record as an employee object
-
-
-    public static Employee FindEmployeeById(int id) {
-        String path = "./people/long/";
-        System.out.println("ID given:" + id);
-        System.out.println(path);
-        File f = new File("./people/long/");
-        String[] paths;
-        paths = f.list();
-        Employee employee = null;
-
-        for (int i = 0; i < paths.length; i++) {
-
-            var readString = readFromFile(path + paths[i]).split(",");
-            var empID = Integer.parseInt(readString[0]);
-            var empFNAME = readString[1].replaceAll("\\s", "");
-            var empLNAME = readString[2].replaceAll("\\s", "");
-            var empHIRE_YEAR = Integer.parseInt(readString[3].replaceAll("\\s", ""));
-                if (empID == id) {
-                    // Reading the object from a file
-                    employee = new Employee(empID, empFNAME, empLNAME, empHIRE_YEAR);
-                }
-            }
-
-
-        System.out.println(employee);
-        return employee;
-    }
-
-    public static List<Employee> FindAllEmployeesByLastName(String lastName){
-
-        String path = "./people/long/";
-        System.out.println("Last Name given:" + lastName);
-        System.out.println(path);
-        File f = new File("./people/long/");
-        String[] paths;
-        paths = f.list();
-        Employee employee = null;
-
-        for (int i = 0; i < paths.length; i++) {
-
-            //logic
-        }
-
-
-        System.out.println(employee);
-        return (List<Employee>) employee;
-    }
-
-    public static Employee FindEmployeeByLastName(String lastName){
-        String path = "./people/long/";
-        System.out.println("Last Name given:" + lastName);
-        System.out.println(path);
-        File f = new File("./people/long/");
-        String[] paths;
-        paths = f.list();
-        Employee employee = null;
-
-        for (int i = 0; i < paths.length; i++) {
-
-            var readString = readFromFile(path + paths[i]).split(",");
-
-            var empID = Integer.parseInt(readString[0]);
-            var empFNAME = readString[1].replaceAll("\\s", "");
-            var empLNAME = readString[2].replaceAll("\\s", "");
-            var empHIRE_YEAR = Integer.parseInt(readString[3].replaceAll("\\s", ""));
-
-            if (empLNAME.contains(lastName)) {
-                // Reading the object from a file
-                System.out.println("MATCH FOUND");
-                System.out.println(employee);
-                employee = new Employee(empID, empFNAME, empLNAME, empHIRE_YEAR);
-
-                //IF BREAK IS REMOVED, THIS THEN RETURNS EVERY PERSON WITH THE SAME LAST NAME GIVEN
-                break;
-            }
-        }
-
-        System.out.println(employee);
-        return null;
-    }
-
 
     public static void SerializeEmployee() throws IOException {
         String newPath = "./people/long/";
@@ -280,15 +303,9 @@ public class Logic implements java.io.Serializable {
         return employee;
     }
 
-    public static String readFromFile(String filePath) {
-        String line = "";
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath))) {
-            line = bufferedReader.readLine();
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        }
-        return line;
-    }
+
+
+    //Part 1
 
     public static void PrintPeopleDetails(String path) {
         System.out.println(path);
@@ -296,7 +313,7 @@ public class Logic implements java.io.Serializable {
         File f = new File("./people/simple/");
         //sets the file path to an object
         String[] paths;
-            //Both add file path to an iterable array
+        //Both add file path to an iterable array
         paths = f.list();
 
         for (int i = 0; i < paths.length; i++) {
@@ -306,7 +323,7 @@ public class Logic implements java.io.Serializable {
         }
     }
 
-    public static void PrintAllEmployees(String path) {
+    public static void PrintEmployees(String path) {
         System.out.println(path);
         File f = new File("./people/simple/");
         String[] paths;
@@ -325,13 +342,13 @@ public class Logic implements java.io.Serializable {
         }
     }
 
-    File empFile = new File("./people/simple/");
-    HashMap<Integer, Employee> GetAllEmployees(empFile) = new HashMap<>();
-      //couldnt figure out how it works, thought we might have to make a fie array
-    // or get one of the other methods that have the employee array list and use hashmap to call them all
-    //not sure how to do that though
-
-
+    public static String readFromFile(String filePath) {
+        String line = "";
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath))) {
+            line = bufferedReader.readLine();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+        return line;
+    }
 }
-
-

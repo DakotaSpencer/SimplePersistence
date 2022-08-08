@@ -129,16 +129,26 @@ public class Logic implements java.io.Serializable {
 
     public static HashMap<Integer, Employee> GetAllEmployees(String path){
 //        Takes a path parameter
-        path = "./people/simple/";
-        //        Iterates over each serialized (.ser) file in the given path
-        for(int i = 0; i < path.length(); i++){
-           try{
-
-           } catch (Exception e){
-               e.printStackTrace();
-           }
-
+        //Iterates over each serialized (.ser) file in the given path
+        File f = new File("./people/long serialized/"); // assuming long serialized has the .ser files
+        //sets the file path to an object
+        String[] paths;
+        //Both add file path to an iterable array
+        paths = f.list();
+        for (int i = 0; i < paths.length; i++) {
+            //iterates though and prings every file
+            //System.out.println( paths[i]);
+            System.out.println(readFromFile(path + paths[i]));
         }
+//        for(int i = 0; i < path.length(); i++){
+//           try{
+//            //GetSerializedEmployee(1234); //<-- example id
+//
+//           } catch (Exception e){
+//               e.printStackTrace();
+//           }
+//
+//        }
 
 //        Deserialize the Employee Object
 //        Add the Employee object to a HashMap keyed by the employees Id

@@ -325,13 +325,11 @@ public class Logic implements java.io.Serializable {
         }
     }
 
-    HashMap<Integer, Employee> GetAllEmployees = new HashMap<>();
-    //so apparently it needs a seperate class to work but not entirely sure yet
-
-    /* Call GetAllEmployees above
-Loop through the values in your HashMap and print each Employees Details*/
-
-
+    File empFile = new File("./people/simple/");
+    HashMap<Integer, Employee> GetAllEmployees(empFile) = new HashMap<>();
+      //couldnt figure out how it works, thought we might have to make a fie array
+    // or get one of the other methods that have the employee array list and use hashmap to call them all
+    //not sure how to do that though
 
 
 }

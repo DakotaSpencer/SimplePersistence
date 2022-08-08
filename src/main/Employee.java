@@ -1,10 +1,13 @@
 package main;
 
-public class Employee implements java.io.Serializable{
+public class Employee implements java.io.Serializable {
     Integer id;
     String firstName;
     String lastName;
     Integer hireYear;
+
+    public Employee() {
+    }
 
     public Employee(Integer id, String firstName, String lastName, Integer hireYear) {
         this.id = id;

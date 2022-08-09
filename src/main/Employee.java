@@ -1,6 +1,8 @@
 package main;
 
-public class Employee implements java.io.Serializable {
+import java.io.Serializable;
+
+public class Employee implements Serializable {
     Integer id;
     String firstName;
     String lastName;

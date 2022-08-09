@@ -4,10 +4,10 @@ import java.io.*;
 import java.util.*;
 
 
-public class Logic implements java.io.Serializable {
+public class Logic implements Serializable {
     public static String path = "./people/simple/";
 
-    public static void run() throws IOException {
+    public static void run() throws IOException, ClassNotFoundException {
 //        System.out.println("PRINTING EACH EMPLOYEE");
         
 //        long startTime = System.nanoTime();
@@ -23,13 +23,13 @@ public class Logic implements java.io.Serializable {
 
 //        AddEmployee(11110, "test", "test", 1);
 //        System.out.println("RUNNING SERIALIZE EMPLOYEE");
-//        SerializeEmployee();
+        SerializeEmployee();
 //        System.out.println("DELETE EMPLOYEE");
 //        DeleteEmployee(11110); //<-- enter id number there
 //        System.out.println("UPDATE EMPLOYEE");
 //        UpdateEmployee(347, "Nelly", "Morgan", 2007);
 //        System.out.println("GET SERIALIZED EMPLOYEE");
-//        GetSerializedEmployee(1);
+        GetSerializedEmployee(1);
 
 //        System.out.println("FIND EMPLOYEE BY ID");
 //        FindEmployeeById(4);
@@ -39,8 +39,8 @@ public class Logic implements java.io.Serializable {
 //        FindEmployeeByLastName("FOSTER");
         //GetAllEmployees(new File("people\\simple"));
        // PrintAllEmployees();
-        //PrintSerializedDetails(new File("people\\simple serialized"));
-        GetSerializedEmployee(1);
+        PrintSerializedDetails(new File("people\\large serialized"));
+        //GetSerializedEmployee(1);
 
     }
 
@@ -285,7 +285,7 @@ public class Logic implements java.io.Serializable {
 
             try
             {
-                File targetDir=new File("./people/long serialized/");
+                File targetDir=new File("./people/large serialized/");
                 File targetFile=new File(targetDir, filename);
 
                 //Saving of object in a file in the right directory
@@ -311,16 +311,16 @@ public class Logic implements java.io.Serializable {
 
     }
 
-    public static Employee GetSerializedEmployee(Integer id) {
-      //  String path = "./people/long serialized/";
+    public static Employee GetSerializedEmployee(Integer id) throws IOException, ClassNotFoundException {
+        String entry = "./people/large serialized/"+id+".ser";
       //  System.out.println(path);
        // File[] f = ; // assuming long serialized has the .ser files
         Employee employee = null;
 
-       for(File entry : new File("people\\simple serialized").listFiles()) {
-
-           System.out.println(entry);
-           try {
+//       for(File entry : new File("./people/long serialized/").listFiles()) {
+//
+//           System.out.println(entry);
+//           try {
                // Reading the object from a file
                FileInputStream file = new FileInputStream(entry);
                ObjectInputStream in = new ObjectInputStream(file);
@@ -338,12 +338,12 @@ public class Logic implements java.io.Serializable {
 //               System.out.println("First Name = " + employee.firstName);
 //               System.out.println("Last Name = " + employee.lastName);
 //               System.out.println("Hire Year = " + employee.hireYear);
-           } catch (Exception ex) {
-               System.out.println("IOException is caught");
-               ex.printStackTrace();
-           }
+//           } catch (Exception ex) {
+//               System.out.println("IOException is caught");
+//               ex.printStackTrace();
+//           }
 
-        }
+//        }
         return employee;
     }
 

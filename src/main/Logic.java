@@ -312,33 +312,40 @@ public class Logic implements java.io.Serializable {
     }
 
     public static Employee GetSerializedEmployee(Integer id) {
-            Employee employee = null;
-            // Grab the folder of files
-            File file = new File("people\\large serialized\\" + id + ".ser");
-            // check for the ID
-            if (file.exists()) {
-                // Define the path
-                try {
-                    FileInputStream fileIn = new FileInputStream(file);
-                    ObjectInputStream in = new ObjectInputStream(fileIn);
+      //  String path = "./people/long serialized/";
+      //  System.out.println(path);
+       // File[] f = ; // assuming long serialized has the .ser files
+        Employee employee = null;
 
-                    employee = (Employee) in.readObject();
+       for(File entry : new File("people\\simple serialized").listFiles()) {
 
-                    in.close();
-                    fileIn.close();
+           System.out.println(entry);
+           try {
+               // Reading the object from a file
+               FileInputStream file = new FileInputStream(entry);
+               ObjectInputStream in = new ObjectInputStream(file);
 
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-            } else {
-                System.out.println("The requested file does not exist!");
-            }
-            return employee;
+               // Method for deserialization of object
+               System.out.println((in.readObject()));
+
+               //employee = (Employee) in.readObject();
+
+               in.close();
+               file.close();
+
+//               System.out.println("Object has been deserialized ");
+//               System.out.println("ID = " + employee.id);
+//               System.out.println("First Name = " + employee.firstName);
+//               System.out.println("Last Name = " + employee.lastName);
+//               System.out.println("Hire Year = " + employee.hireYear);
+           } catch (Exception ex) {
+               System.out.println("IOException is caught");
+               ex.printStackTrace();
+           }
+
         }
-
-
+        return employee;
     }
-
 
 
 

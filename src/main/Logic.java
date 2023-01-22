@@ -10,11 +10,11 @@ public class Logic implements Serializable {
     public static void run() throws IOException, ClassNotFoundException {
 //        System.out.println("PRINTING EACH EMPLOYEE");
         
-//        long startTime = System.nanoTime();
-//        long endTime = System.nanoTime();
+        long startTime = System.nanoTime();
+        long endTime = System.nanoTime();
 //        PrintPeopleDetails(path);
-//        long duration = (endTime - startTime);
-//        System.out.println("Method took " + duration / 1000000 + " ms to complete");
+        long duration = (endTime - startTime);
+       System.out.println("Method took " + duration / 1000000 + " ms to complete");
 
 //        System.out.println("PRINTING EMPLOYEE DETAILS");
 //        PrintEmployees(path);
